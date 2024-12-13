@@ -1,22 +1,30 @@
+# Define virtual environment directory
+VENV_DIR = .venv
+BIN_DIR = $(VENV_DIR)/bin
+
+# Define the Python binary in the virtual environment
+PYTHON = $(VENV_DIR)/bin/python
+PIP = $(VENV_DIR)/bin/pip
+
 # default target, when make executed without arguments
-all: .venv/bin/activate lint format test
+all: install lint format test
 
 install: .venv/bin/activate
 
 .venv/bin/activate: requirements.txt
-	python3 -m venv .venv
-	./.venv/bin/pip install --upgrade pip
-	./.venv/bin/pip install --upgrade -r requirements.txt
+	python3 -m venv $(VENV_DIR)
+	$(PIP) install --upgrade pip
+	$(PIP) install --upgrade -r requirements.txt
 
 format:
-	black *.py
+	$(BIN_DIR)/black *.py
 
 lint:
-	pylint --disable=R,C *.py
-	mypy --strict *.py
+	$(BIN_DIR)/pylint --disable=R,C *.py
+	$(BIN_DIR)/mypy --strict *.py
 
 test:
-	python -m pytest -vv --cov=hello test_hello.py
+	$(PYTHON) -m pytest -vv --cov=hello test_hello.py
 
 flt: format lint test
 
