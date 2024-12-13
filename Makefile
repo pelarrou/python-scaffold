@@ -4,7 +4,7 @@ all: .venv/bin/activate lint format test
 .venv/bin/activate: requirements.txt
 	python3 -m venv .venv
 	./.venv/bin/pip install --upgrade pip
-	./.venv/bin/pip install -r requirements.txt
+	./.venv/bin/pip install --upgrade -r requirements.txt
 
 format:
 	black *.py
