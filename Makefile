@@ -1,6 +1,8 @@
 # default target, when make executed without arguments
 all: .venv/bin/activate lint format test
 
+install: .venv/bin/activate
+
 .venv/bin/activate: requirements.txt
 	python3 -m venv .venv
 	./.venv/bin/pip install --upgrade pip
@@ -10,15 +12,12 @@ format:
 	black *.py
 
 lint:
-	which pylint
 	pylint --disable=R,C *.py
 	mypy --strict *.py
 
 test:
-	which python
-# 	python -m pytest -vv --cov=hello test_hello.py
-	pytest -vv --cov=hello test_hello.py
+	python -m pytest -vv --cov=hello test_hello.py
 
 flt: format lint test
 
-.PHONY: all format lint test flt
+.PHONY: all format lint test flt install

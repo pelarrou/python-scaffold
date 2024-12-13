@@ -11,15 +11,16 @@ jobs:
         python-version: 3.12
     - name: Install dependencies
       run: |
-        make .venv/bin/activate
-        . .venv/bin/activate
-        echo PATH=$PATH >> $GITHUB_ENV
+        make install
     - name: Lint with Pylint/Mypy
       run: |
+        source .venv/bin/activate
         make lint
     - name: Test with Pytest
       run: |
+        source .venv/bin/activate
         make test
     - name: Format code with Python black
       run: |
+        source .venv/bin/activate
         make format
