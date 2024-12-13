@@ -12,6 +12,7 @@ jobs:
     - name: Install dependencies
       run: |
         make .venv/bin/activate
+        . .venv/bin/activate
         echo PATH=$PATH >> $GITHUB_ENV
     - name: Lint with Pylint
       run: |
