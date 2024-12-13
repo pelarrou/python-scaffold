@@ -13,8 +13,8 @@ install: .venv/bin/activate
 
 .venv/bin/activate: requirements.txt
 	python3 -m venv $(VENV_DIR)
-	$(PIP) install --upgrade pip
-	$(PIP) install --upgrade -r requirements.txt
+	$(BIN_DIR)/pip install --upgrade pip
+	$(BIN_DIR)/pip --upgrade -r requirements.txt
 
 format:
 	$(BIN_DIR)/black *.py
@@ -24,7 +24,7 @@ lint:
 	$(BIN_DIR)/mypy --strict *.py
 
 test:
-	$(PYTHON) -m pytest -vv --cov=hello test_hello.py
+	$(BIN_DIR)/python -m pytest -vv --cov=hello test_hello.py
 
 flt: format lint test
 
