@@ -4,22 +4,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
     - name: Set up Python 3.12
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: 3.12
-    - name: Install dependencies
+        cache: 'pip'
+
+    - name: Create virtual environment, and install dependencies
       run: |
         make install
+
     - name: Lint with Pylint/Mypy
       run: |
         source .venv/bin/activate
         make lint
+
     - name: Test with Pytest
       run: |
         source .venv/bin/activate
         make test
+
     - name: Format code with Python black
       run: |
         source .venv/bin/activate
