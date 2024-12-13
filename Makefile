@@ -13,6 +13,7 @@ install: .venv/bin/activate
 
 .venv/bin/activate: requirements.txt
 	python3 -m venv $(VENV_DIR)
+	source .venv/bin/activate
 	$(BIN_DIR)/pip install --upgrade pip
 	$(BIN_DIR)/pip --upgrade -r requirements.txt
 
